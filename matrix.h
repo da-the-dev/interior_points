@@ -2,17 +2,19 @@
 #define MATRIX_H
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Matrix {
 public:
   int width;
-  double **matrix;
+  vector<vector<double>> matrix;
   int height;
   Matrix(int height, int width);
+  ~Matrix();
 
-  double& operator()(int row, int col);
-  const double& operator()(int row, int col) const; // 
+  double &operator()(int row, int col);
+  const double &operator()(int row, int col) const; //
   friend ostream &operator<<(ostream &out, const Matrix &m);
   friend istream &operator>>(istream &in, Matrix &m);
 

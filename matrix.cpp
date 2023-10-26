@@ -5,10 +5,7 @@
 using namespace std;
 
 Matrix::Matrix(int height, int width) : height(height), width(width) {
-  matrix = new double *[height];
-  for (int i = 0; i < height; i++) {
-    matrix[i] = new double[width];
-  }
+  matrix = vector(height, vector(width, 0.0));
 }
 
 double& Matrix::operator()(int row, int col) {
@@ -99,13 +96,14 @@ void Matrix::operator=(const Matrix &matrixEntity) {
   }
 }
 
-void Matrix::permute(int first, int second) {
-  if (first < height && second < height) {
-  }
-  double *temp = matrix[first];
-  matrix[first] = matrix[second];
-  matrix[second] = temp;
-}
+// void Matrix::permute(int first, int second) {
+//   if (first < height && second < height) {
+//   }
+//   double *temp = matrix[first];
+//   matrix[first] = matrix[second];
+//   matrix[second] = temp;
+// }
+//
 void Matrix::rowSubtract(int first, int second, double coef) {
   for (int i = 0; i < width; i++) {
     matrix[second][i] -= matrix[first][i] * coef;
