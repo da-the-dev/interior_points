@@ -4,12 +4,15 @@
 
 
 Matrix projection_matrix(Matrix Ct) {
-  Matrix finalC = Ct.transpose() * (Ct * Ct.transpose()) * Ct;
- 
+  Matrix Ct_T = Ct.transpose();
+  Matrix multiply = Ct * Ct_T;
+  Matrix finalC = Ct_T * multiply.inverse() * Ct;
+
   Matrix I = Matrix(finalC.height, finalC.width);
   I.setIdentity();
-
+ 
   Matrix P = I - finalC;
+
   return P;
 }
 
