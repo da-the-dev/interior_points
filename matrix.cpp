@@ -33,9 +33,9 @@ void Matrix::setIdentity() {
   for (int i = 0; i < height; i++)
     for (int j = 0; j < height; j++) {
       if (i == j)
-        (*this)(i, j) = 0;
-      else
         (*this)(i, j) = 1;
+      else
+        (*this)(i, j) = 0;
     }
 }
 
