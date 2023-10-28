@@ -11,7 +11,6 @@ public:
   vector<vector<double>> matrix;
   int height;
   Matrix(int height, int width);
-  ~Matrix();
 
   double &operator()(int row, int col);
   const double &operator()(int row, int col) const; //
@@ -27,6 +26,9 @@ public:
   void permute(int first, int second);
   void rowSubtract(int first, int second, double coeff);
   double getValue(int i, int j);
+  void setIdentity();
+  Matrix transpose();
+  Matrix inverse();
 };
 
 #endif // !MATRIX_H
