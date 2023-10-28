@@ -3,16 +3,13 @@
 #define EPSILON 0.00001
 
 
-Matrix projection_matrix(Matrix *Atilda) {
-  Matrix Atilda_T = Atilda->transpose();
-  Matrix Atilda_Atilda_T = *Atilda * Atilda_T;
-  Matrix AATinverse = Atilda_Atilda_T.inverse();
-  Matrix Atilda_T_times_inverse = Atilda_T * AATinverse;
-  Matrix finalA = Atilda_T_times_inverse * *Atilda;
+Matrix projection_matrix(Matrix Ct) {
+  Matrix finalC = Ct.transpose() * (Ct * Ct.transpose()) * Ct;
+ 
+  Matrix I = Matrix(finalC.height, finalC.width);
+  I.setIdentity();
 
-  Matrix I = Matrix(finalA.height, finalA.width);
-
-  Matrix P = I - finalA;
+  Matrix P = I - finalC;
   return P;
 }
 
@@ -50,7 +47,7 @@ Matrix interior_point(Matrix C, Matrix A, Matrix b, int approximation,
   Matrix Ctilda = C * D; // + computes correctly
   Matrix Atilda = D * A; // + computes correctly
 
-  Matrix P = projection_matrix(&Ctilda); 
+  Matrix P = projection_matrix(Ctilda); 
 
   Matrix A_p = P * Atilda;
 
