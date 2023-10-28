@@ -28,9 +28,26 @@ int main() {
   int approximation;
   cin >> approximation;
 
-  // simplex(C, A, b, approximation, variables, constraints);
-  interior_point(C, A, b, approximation, variables, constraints, 0.5);
-  interior_point(C, A, b, approximation, variables, constraints, 0.5);
+  // cout << "Enter the initial trial solutions (a point within the
+  // constraints):"
+  //      << endl;
+  Matrix X_0(variables, 1);
+  cin >> X_0;
 
+  // // TODO DEBUG
+  // cout << endl << endl;
+  // cout << "DEB: Matrix C" << endl;
+  // cout << C;
+  // cout << "DEB: Matrix A" << endl;
+  // cout << A;
+  // cout << "DEB: Matrix b" << endl;
+  // cout << b;
+  // cout << "DEB: Matrix X_0" << endl;
+  // cout << X_0;
+  // cout << endl << endl;
+
+  Matrix result = interior_point(C, A, b, approximation, variables, constraints, X_0, 0.5);
+
+  cout << result << endl;
   return 0;
 }

@@ -16,8 +16,9 @@ Matrix::Matrix(int height, int width, double filler)
   matrix.resize(height);
   for (int i = 0; i < height; i++)
     matrix[i].resize(width);
+
   for (int i = 0; i < height; i++)
-    for (int j = 0; j < height; j++)
+    for (int j = 0; j < width; j++)
       (*this)(i, j) = filler;
 }
 
