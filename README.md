@@ -14,6 +14,14 @@ Please inspect the Git flow we use:
 
 To run: `build/bin/int_points`
 
+### To debug
+- Run `./make -d`
+Or
+- Run `./make -dd`
+for a lighter version
+
+To run: `build/bin/int_points`
+
 ## Some instructions
 !TODO
 
