@@ -28,16 +28,6 @@ Matrix projection_matrix(Matrix Ct) {
  */
 Matrix interior_point(Matrix C, Matrix A, Matrix b, int approximation,
                     int variables, int constraints, Matrix X_0, double alpha) {
-  // // TODO DEBUG
-  // cout << "DEB: Matrix C" << endl;
-  // cout << C;
-  // cout << "DEB: Matrix A" << endl;
-  // cout << A;
-  // cout << "DEB: Matrix b" << endl;
-  // cout << b;
-  // cout << "DEB: Matrix X_0" << endl;
-  // cout << X_0;
-
   // Diagonal matrix D
   Matrix D = Matrix(X_0.height, X_0.height);
   for (int i = 0; i < X_0.height; i++) {

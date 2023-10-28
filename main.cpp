@@ -35,18 +35,6 @@ int main() {
   Matrix X_0(variables, 1);
   cin >> X_0;
 
-  // // TODO DEBUG
-  // cout << endl << endl;
-  // cout << "DEB: Matrix C" << endl;
-  // cout << C;
-  // cout << "DEB: Matrix A" << endl;
-  // cout << A;
-  // cout << "DEB: Matrix b" << endl;
-  // cout << b;
-  // cout << "DEB: Matrix X_0" << endl;
-  // cout << X_0;
-  // cout << endl << endl;
-
   Matrix result = interior_point(C, A, b, approximation, variables, constraints, X_0, 0.5);
 
   cout << result << endl;
