@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <cmath>
 #include <iostream>
 #include <istream>
 
@@ -8,6 +9,16 @@ Matrix::Matrix(int height, int width) : height(height), width(width) {
   matrix.resize(height);
   for (int i = 0; i < height; i++)
     matrix[i].resize(width);
+}
+
+Matrix::Matrix(int height, int width, double filler)
+    : height(height), width(width) {
+  matrix.resize(height);
+  for (int i = 0; i < height; i++)
+    matrix[i].resize(width);
+  for (int i = 0; i < height; i++)
+    for (int j = 0; j < height; j++)
+      (*this)(i, j) = filler;
 }
 
 double &Matrix::operator()(int row, int col) { return matrix[row][col]; }
@@ -112,6 +123,16 @@ Matrix Matrix::operator*(const Matrix &matrixEntity) const {
   }
 }
 
+Matrix operator*(double scalar, const Matrix &matrix) {
+  Matrix result(matrix.height, matrix.width);
+  for (int i = 0; i < matrix.height; i++) {
+    for (int j = 0; j < matrix.width; j++) {
+      result(i, j) = scalar * matrix(i, j);
+    }
+  }
+  return result;
+}
+
 void Matrix::operator=(const Matrix &matrixEntity) {
   if (matrixEntity.height == height && matrixEntity.width == 1 ||
       height == 0 && width == 0) {
@@ -202,4 +223,19 @@ Matrix Matrix::inverse() {
   }
 
   return inverseMatrix;
+}
+
+double Matrix::length() {
+  // Check if the matrix has height n and width 1
+  // if (width != 1) {
+  //     throw std::invalid_argument("Matrix dimensions do not match for length
+  //     calculation.");
+  // }
+
+  double sumOfSquares = 0.0;
+  for (int i = 0; i < height; i++) {
+    sumOfSquares += matrix[i][0] * matrix[i][0];
+  }
+
+  return sqrt(sumOfSquares);
 }

@@ -8,9 +8,11 @@ using namespace std;
 class Matrix {
 public:
   int width;
-  vector<vector<double>> matrix;
   int height;
+
+  vector<vector<double>> matrix;
   Matrix(int height, int width);
+  Matrix(int height, int width, double filler);
 
   double &operator()(int row, int col);
   const double &operator()(int row, int col) const; //
@@ -20,6 +22,7 @@ public:
   Matrix operator+(const Matrix &matrixEntity) const;
   Matrix operator-(const Matrix &matrixEntity) const;
   Matrix operator*(const Matrix &matrixEntity) const;
+  friend Matrix operator*(const double scalar, const Matrix &matrixEntity) ;
 
   virtual void operator=(const Matrix &matrixEntity);
 
@@ -29,6 +32,7 @@ public:
   void setIdentity();
   Matrix transpose();
   Matrix inverse();
+  double length();
 };
 
 #endif // !MATRIX_H
