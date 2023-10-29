@@ -26,9 +26,6 @@ public:
 
   virtual void operator=(const Matrix &matrixEntity);
 
-  void permute(int first, int second);
-  void rowSubtract(int first, int second, double coeff);
-  double getValue(int i, int j);
   void setIdentity();
   Matrix transpose();
   Matrix inverse();

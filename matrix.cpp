@@ -24,31 +24,6 @@ Matrix::Matrix(int height, int width, double filler)
 
 double &Matrix::operator()(int row, int col) { return matrix[row][col]; }
 
-void Matrix::setIdentity() {
-  if (height != width) {
-    printf("Attempted to setIdentity on a rectangular matrix\n");
-    exit(0);
-  }
-
-  for (int i = 0; i < height; i++)
-    for (int j = 0; j < height; j++) {
-      if (i == j)
-        (*this)(i, j) = 1;
-      else
-        (*this)(i, j) = 0;
-    }
-}
-
-Matrix Matrix::transpose() {
-  Matrix result(width, height);
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      result(j, i) = matrix[i][j];
-    }
-  }
-  return result;
-}
-
 const double &Matrix::operator()(int row, int col) const {
   return matrix[row][col];
 }
@@ -143,25 +118,29 @@ void Matrix::operator=(const Matrix &matrixEntity) {
   }
 }
 
-// void Matrix::permute(int first, int second) {
-//   if (first < height && second < height) {
-//   }
-//   double *temp = matrix[first];
-//   matrix[first] = matrix[second];
-//   matrix[second] = temp;
-// }
-//
-void Matrix::rowSubtract(int first, int second, double coef) {
-  for (int i = 0; i < width; i++) {
-    matrix[second][i] -= matrix[first][i] * coef;
-    abs(matrix[second][i]) < 1e-10 ? matrix[second][i] = 0
-                                   : matrix[second][i] = matrix[second][i];
+void Matrix::setIdentity() {
+  if (height != width) {
+    printf("Attempted to setIdentity on a rectangular matrix\n");
+    exit(0);
   }
+
+  for (int i = 0; i < height; i++)
+    for (int j = 0; j < height; j++) {
+      if (i == j)
+        (*this)(i, j) = 1;
+      else
+        (*this)(i, j) = 0;
+    }
 }
 
-double Matrix::getValue(int i, int j) {
-  double a = matrix[i][j];
-  return (a);
+Matrix Matrix::transpose() {
+  Matrix result(width, height);
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      result(j, i) = (*this)(i, j);
+    }
+  }
+  return result;
 }
 
 Matrix Matrix::inverse() {
@@ -228,10 +207,10 @@ Matrix Matrix::inverse() {
 
 double Matrix::length() {
   // Check if the matrix has height n and width 1
-  // if (width != 1) {
-  //     throw std::invalid_argument("Matrix dimensions do not match for length
-  //     calculation.");
-  // }
+  if (width != 1) {
+    throw std::invalid_argument(
+        "Matrix dimensions do not match for length calculation.");
+  }
 
   double sumOfSquares = 0.0;
   for (int i = 0; i < height; i++) {
