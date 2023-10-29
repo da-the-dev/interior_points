@@ -1,6 +1,6 @@
-#include <iostream>
-#include "matrix.h"
 #include "interior_point.h"
+#include "matrix.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,11 +13,11 @@ int main() {
   cin >> constraints;
 
   cout << "Enter the C matrix:" << endl;
-  Matrix C(1, variables);
+  Matrix C(constraints, variables);
   cin >> C;
 
   cout << "Enter the A vector (objective function):" << endl;
-  Matrix A(constraints, variables);
+  Matrix A(variables, 1);
   cin >> A;
 
   cout << "Enter the b vector (right-hand side):" << endl;
@@ -28,9 +28,14 @@ int main() {
   int approximation;
   cin >> approximation;
 
-  // simplex(C, A, b, approximation, variables, constraints);
-  interior_point(C, A, b, approximation, variables, constraints, 0.5);
-  interior_point(C, A, b, approximation, variables, constraints, 0.5);
+  cout << "Enter the initial trial solutions (a point within the constraints):"
+       << endl;
+  Matrix X_0(variables, 1);
+  cin >> X_0;
 
+  Matrix result =
+      interior_point(C, A, b, approximation, variables, constraints, X_0, 0.5);
+
+  cout << result << endl;
   return 0;
 }

@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <cmath>
 #include <iostream>
 #include <istream>
 
@@ -10,32 +11,18 @@ Matrix::Matrix(int height, int width) : height(height), width(width) {
     matrix[i].resize(width);
 }
 
-double &Matrix::operator()(int row, int col) { return matrix[row][col]; }
-
-void Matrix::setIdentity() {
-  if (height != width) {
-    printf("Attempted to setIdentity on a rectangular matrix\n");
-    exit(0);
-  }
+Matrix::Matrix(int height, int width, double filler)
+    : height(height), width(width) {
+  matrix.resize(height);
+  for (int i = 0; i < height; i++)
+    matrix[i].resize(width);
 
   for (int i = 0; i < height; i++)
-    for (int j = 0; j < height; j++) {
-      if (i == j)
-        (*this)(i, j) = 0;
-      else
-        (*this)(i, j) = 1;
-    }
+    for (int j = 0; j < width; j++)
+      (*this)(i, j) = filler;
 }
 
-Matrix Matrix::transpose() {
-  Matrix result(width, height);
-  for (int i = 0; i < height; i++) {
-    for (int j = 0; j < width; j++) {
-      result(j, i) = matrix[i][j];
-    }
-  }
-  return result;
-}
+double &Matrix::operator()(int row, int col) { return matrix[row][col]; }
 
 const double &Matrix::operator()(int row, int col) const {
   return matrix[row][col];
@@ -112,6 +99,16 @@ Matrix Matrix::operator*(const Matrix &matrixEntity) const {
   }
 }
 
+Matrix operator*(double scalar, const Matrix &matrix) {
+  Matrix result(matrix.height, matrix.width);
+  for (int i = 0; i < matrix.height; i++) {
+    for (int j = 0; j < matrix.width; j++) {
+      result(i, j) = scalar * matrix(i, j);
+    }
+  }
+  return result;
+}
+
 void Matrix::operator=(const Matrix &matrixEntity) {
   if (matrixEntity.height == height && matrixEntity.width == 1 ||
       height == 0 && width == 0) {
@@ -121,25 +118,29 @@ void Matrix::operator=(const Matrix &matrixEntity) {
   }
 }
 
-// void Matrix::permute(int first, int second) {
-//   if (first < height && second < height) {
-//   }
-//   double *temp = matrix[first];
-//   matrix[first] = matrix[second];
-//   matrix[second] = temp;
-// }
-//
-void Matrix::rowSubtract(int first, int second, double coef) {
-  for (int i = 0; i < width; i++) {
-    matrix[second][i] -= matrix[first][i] * coef;
-    abs(matrix[second][i]) < 1e-10 ? matrix[second][i] = 0
-                                   : matrix[second][i] = matrix[second][i];
+void Matrix::setIdentity() {
+  if (height != width) {
+    printf("Attempted to setIdentity on a rectangular matrix\n");
+    exit(0);
   }
+
+  for (int i = 0; i < height; i++)
+    for (int j = 0; j < height; j++) {
+      if (i == j)
+        (*this)(i, j) = 1;
+      else
+        (*this)(i, j) = 0;
+    }
 }
 
-double Matrix::getValue(int i, int j) {
-  double a = matrix[i][j];
-  return (a);
+Matrix Matrix::transpose() {
+  Matrix result(width, height);
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      result(j, i) = (*this)(i, j);
+    }
+  }
+  return result;
 }
 
 Matrix Matrix::inverse() {
@@ -202,4 +203,19 @@ Matrix Matrix::inverse() {
   }
 
   return inverseMatrix;
+}
+
+double Matrix::length() {
+  // Check if the matrix has height n and width 1
+  if (width != 1) {
+    throw std::invalid_argument(
+        "Matrix dimensions do not match for length calculation.");
+  }
+
+  double sumOfSquares = 0.0;
+  for (int i = 0; i < height; i++) {
+    sumOfSquares += matrix[i][0] * matrix[i][0];
+  }
+
+  return sqrt(sumOfSquares);
 }

@@ -3,6 +3,7 @@
 
 #include "matrix.h"
 
-void interior_point(Matrix C, Matrix A, Matrix b, int approximation, int variables, int constraints, double alpha);
+Matrix interior_point(Matrix C, Matrix A, Matrix b, int approximation,
+                    int variables, int constraints, Matrix starting_X, double alpha);
 
 #endif
