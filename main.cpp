@@ -33,9 +33,12 @@ int main() {
   Matrix X_0(variables, 1);
   cin >> X_0;
 
-  Matrix result =
+  Matrix result_05 =
       interior_point(C, A, b, approximation, variables, constraints, X_0, 0.5);
+  cout << "Result with alpha = 0.5" << endl << result_05 << endl;
+  Matrix result_09 =
+      interior_point(C, A, b, approximation, variables, constraints, X_0, 0.9);
+  cout << "Result with alpha = 0.9" << endl << result_09 << endl;
 
-  cout << result << endl;
   return 0;
 }
