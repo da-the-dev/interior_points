@@ -22,10 +22,6 @@ for a lighter version
 
 To run: `build/bin/int_points`
 
-## Some instructions
-!TODO
-
-
 # Worked on the project
 - Alexey Tkachenko
 - Alsu Khairullina
