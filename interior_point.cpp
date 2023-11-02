@@ -30,8 +30,10 @@ Matrix projection_matrix(Matrix Ct) {
 Matrix interior_point(Matrix C, Matrix A, Matrix b, int approximation,
                       int variables, int constraints, Matrix starting_X,
                       double alpha) {
+  int iterations = 0;
   Matrix X = Matrix(0, 0);
   Matrix X_0 = starting_X;
+
   while (true) {
     // Diagonal matrix D
     Matrix D = Matrix(X_0.height, X_0.height);
@@ -60,5 +62,10 @@ Matrix interior_point(Matrix C, Matrix A, Matrix b, int approximation,
     if (diff.length() <= EPSILON)
       return X;
     X_0 = X;
+
+    if (++iterations >= 10000) {
+      printf("The problem does not have solution! (tried 10000 iterations then bailed)\n");
+      exit(0);
+    }
   }
 }
